@@ -4,7 +4,7 @@ Objetivo
 
 La finalidad del taller es entender las limitaciones que tienen las pruebas unitarias. Queremos poder desarrollar un criterio para generar pruebas y no solo para obtener el resultado correcto.
 
-Parte 1 – Exploración inicial
+# Parte 1 – Exploración inicial
 
 1. Instala las dependencias:
 
@@ -20,14 +20,14 @@ pytest
 
 3. Analiza el resultado general y toma nota de cualquier observación.
 
-Parte 2 – Análisis crítico de las pruebas
+# Parte 2 – Análisis crítico de las pruebas
 
 Responde en un documento: ¿Las pruebas actuales garantizan la corrección total del código?
 
 * ¿Qué aspectos del comportamiento no están siendo validados?
 * ¿Qué tipo de errores podrían pasar desapercibidos?
 
-Parte 3 – El lado oscuro de las pruebas
+# Parte 3 – El lado oscuro de las pruebas
 
 1. Ubica la función calcular_promedio en:
 
@@ -50,7 +50,7 @@ Responde:
 * ¿Por qué siguen pasando?
 * ¿Qué debilidad tienen estos tests?
 
-Parte 4 – Mejora de pruebas
+# Parte 4 – Mejora de pruebas
 
 Modifica los tests en:
 
@@ -68,7 +68,7 @@ para que:
 * Múltiples valores
 * Valores de tipo negativo
 
-Parte 5 – Pruebas con mocks
+# Parte 5 – Pruebas con mocks
 
 Utiliza el notebook:
 
@@ -84,7 +84,7 @@ y crea pruebas para analizar_texto que:
 
 No deberás hacer peticiones reales a internet.
 
-Parte 6 – Reflexión sobre cobertura
+# Parte 6 – Reflexión sobre cobertura
 
 Utiliza el notebook:
 
@@ -97,7 +97,7 @@ Me dispongo a responder:
 * ¿Qué distinción existe entre la cobertura y la calidad de las pruebas?
 * ¿Por qué el 100 % de cobertura no es sinónimo de corrección?
 
-Parte 7 – Reflexión final
+# Parte 7 – Reflexión final
 
 Responde:
 
