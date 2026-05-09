@@ -1,13 +1,34 @@
-from src.ordenador import ordenar
+import pytest
+from unittest.mock import patch, Mock
+from src.analizador import analizar_texto
+import requests
 
-def test_vacio():
-    assert ordenar([]) == []
+@patch('src.analizador.requests.get')
+def test_analizar_texto_exitoso(mock_get):
+    mock_response = Mock()
+    mock_response.text = "Hola\nMundo\n"
+    mock_response.raise_for_status.return_value = None
+    mock_get.return_value = mock_response
 
-def test_un_elemento():
-    assert ordenar([5]) == [5]
+    lineas, caracteres = analizar_texto("http://example.com")
+    assert lineas == 3
+    assert caracteres == 9  # Hola(4) + Mundo(5) + ''(0) = 9
 
-def test_ya_ordenado():
-    assert ordenar([1, 2, 3]) == [1, 2, 3]
+@patch('src.analizador.requests.get')
+def test_analizar_texto_falla_despues_reintentos(mock_get):
+    mock_get.side_effect = requests.RequestException("Error de conexión")
 
-def test_otro_ordenado():
-    assert ordenar([4, 5, 6]) == [4, 5, 6]
+    with pytest.raises(RuntimeError, match="No se pudo acceder a la URL después de 3 intentos"):
+        analizar_texto("http://example.com")
+
+@patch('src.analizador.requests.get')
+def test_analizar_texto_exito_en_segundo_intento(mock_get):
+    mock_response = Mock()
+    mock_response.text = "Texto"
+    mock_response.raise_for_status.return_value = None
+
+    mock_get.side_effect = [requests.RequestException("Primero falla"), mock_response]
+
+    lineas, caracteres = analizar_texto("http://example.com")
+    assert lineas == 1
+    assert caracteres == 5
