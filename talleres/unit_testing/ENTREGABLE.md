@@ -1,12 +1,12 @@
 # Taller: Pruebas Unitarias – Más allá del verde
 
-## 🎯 Objetivo
+## Objetivo
 
-Este taller tiene como propósito comprender las limitaciones de las pruebas unitarias y desarrollar criterio para diseñar pruebas robustas, más allá de simplemente obtener resultados “en verde”.
+El objetivo de este taller es conocer las limitaciones de las pruebas unitarias y desarrollar criterio para generar pruebas adecuadas, y no únicamente para obtener resultados "en verde".
 
 ---
 
-## 🧪 Parte 1 – Exploración inicial
+## Parte 1 – Exploración inicial
 
 1. Instala las dependencias:
 
@@ -20,11 +20,11 @@ pip install -r requirements.txt
 pytest
 ```
 
-3. Observa el resultado general.
+3. Observa el resultado de general.
 
 ---
 
-## 🔍 Parte 2 – Análisis crítico de las pruebas
+## Parte 2 – Análisis crítico de las pruebas
 
 Responde en un documento:
 
@@ -34,7 +34,7 @@ Responde en un documento:
 
 ---
 
-## ⚠️ Parte 3 – El lado oscuro de las pruebas
+## Parte 3 – El lado oscuro de las pruebas
 
 1. Ubica la función `calcular_promedio` en:
 
@@ -42,10 +42,9 @@ Responde en un documento:
 src/estadistica.py
 ```
 
-2. Modifícala para que SIEMPRE retorne un valor constante (por ejemplo `3.14`).
+2. Modifícala para que SIEMPRE retorne un valor fijo (por ejemplo `3.14`).
 
-3. Ejecuta nuevamente SOLO los tests relevantes:
-
+3. Vuelve a ejecutar SOLO los tests que sean relevantes:
 ```
 pytest tests/test_estadistica.py -v
 ```
@@ -54,13 +53,13 @@ pytest tests/test_estadistica.py -v
 
 Responde:
 
-* ¿Las pruebas detectaron el error?
+* ¿Las pruebas detectaron presentaron error?
 * ¿Por qué siguen pasando?
 * ¿Qué debilidad tienen estos tests?
 
 ---
 
-## 🔧 Parte 4 – Mejora de pruebas
+## Parte 4 – Mejora de pruebas
 
 Modifica los tests en:
 
@@ -70,18 +69,18 @@ tests/test_estadistica.py
 
 para que:
 
-* Verifiquen valores correctos (no solo tipos)
-* Detecten implementaciones incorrectas
-* Incluyan casos adicionales:
+* Verifiquen no solo tipos de valores correctos
+* Detecten malas implementaciones
+* Incluyan casos complementarios:
 
   * listas vacías
-  * un solo elemento
+  * un único elemento
   * múltiples valores
-  * valores negativos
+  * valores de tipo negativo
 
 ---
 
-## 🧪 Parte 5 – Pruebas con mocks
+## Parte 5 – Pruebas con mocks
 
 Utiliza el notebook:
 
@@ -91,15 +90,15 @@ notebooks/03_analizador_mejorado.ipynb
 
 y crea pruebas para `analizar_texto` que:
 
-* Simulen una respuesta exitosa
-* Simulen un fallo seguido de éxito (reintento)
+* Simulen respuesta satisfactoria
+* Simulen fallo y éxito posterior (reintento)
 * Simulen fallo total (excepción)
 
-⚠️ No debes realizar llamadas reales a internet.
+No deberás hacer peticiones reales a internet.
 
 ---
 
-## 📊 Parte 6 – Reflexión sobre cobertura
+## Parte 6 – Reflexión sobre cobertura
 
 Utiliza el notebook:
 
@@ -107,10 +106,9 @@ Utiliza el notebook:
 notebooks/02_coverage_mejorado.ipynb
 ```
 
-y responde:
-
-* ¿Qué diferencia hay entre cobertura y calidad de pruebas?
-* ¿Por qué 100% coverage no garantiza corrección?
+Me dispongo a responder:
+* ¿Qué distinción existe entre cobertura y la calidad de las pruebas?
+* ¿Por qué el 100 % de cobertura no es sinónimo de corrección?
 
 ---
 
@@ -118,17 +116,17 @@ y responde:
 
 Responde:
 
-* ¿Qué aprendiste sobre las limitaciones de las pruebas unitarias?
-* ¿Qué significa realmente que “los tests pasen”?
-* ¿Cómo evitarías falsas confianzas en un proyecto real?
+* ¿Qué te han enseñado las limitaciones de las pruebas unitarias?
+* ¿Qué implica que “los tests pasen”?
+* ¿Cómo evitarías confusiones erróneas en un proyecto en la vida real?
 
 ---
 
 ## 📦 Entregable
 
-Debes entregar:
+Tienen que entregar:
 
-1. Tests mejorados en:
+1. Tests mejorados corregido en:
 
    * `tests/test_estadistica.py`
    * `tests/test_analizador.py`
@@ -144,7 +142,7 @@ Debes entregar:
 
 ## ⚠️ Nota importante
 
-Se evaluará no solo que los tests pasen, sino:
+No solo se revisará si los tests pasan, sino:
 
 * La calidad de las aserciones
 * La capacidad de detectar errores reales
