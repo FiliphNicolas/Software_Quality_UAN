@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Tareas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .task-form {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        .task-form input {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.75rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        .task-form input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .task-form button {
+            padding: 0.75rem 2rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .task-form button:hover {
+            background: #5568d3;
+        }
+        .task-list {
+            list-style: none;
+        }
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: all 0.3s;
+        }
+        .task-item:hover {
+            border-color: #667eea;
+        }
+        .task-item.completed {
+            background: #f0f0f0;
+            opacity: 0.7;
+        }
+        .task-item.completed .task-title {
+            text-decoration: line-through;
+            color: #888;
+        }
+        .task-content {
+            flex: 1;
+        }
+        .task-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+        .task-description {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .task-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        .task-actions button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .btn-complete {
+            background: #4caf50;
+            color: white;
+        }
+        .btn-complete:hover {
+            background: #45a049;
+        }
+        .btn-delete {
+            background: #f44336;
+            color: white;
+        }
+        .btn-delete:hover {
+            background: #da190b;
+        }
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: #4caf50;
+            color: white;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #888;
+        }
+        .empty-state-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" data-testid="app-container">
+        <h1 data-testid="page-title">📋 Gestor de Tareas</h1>
+        
+        <form class="task-form" action="/create" method="POST" data-testid="task-form">
+            <input 
+                type="text" 
+                name="title" 
+                placeholder="Título de la tarea" 
+                required 
+                data-testid="task-title-input"
+            >
+            <input 
+                type="text" 
+                name="description" 
+                placeholder="Descripción (opcional)" 
+                data-testid="task-description-input"
+            >
+            <button type="submit" data-testid="create-task-button">Agregar Tarea</button>
+        </form>
+        
+        <ul class="task-list" data-testid="task-list">
+            {% if tasks %}
+                {% for task in tasks %}
+                <li class="task-item {% if task.completed %}completed{% endif %}" data-testid="task-item" data-task-id="{{ task.id }}">
+                    <div class="task-content">
+                        <div class="task-title" data-testid="task-title">
+                            {{ task.title }}
+                            {% if task.completed %}
+                            <span class="badge" data-testid="completed-badge">✓ Completada</span>
+                            {% endif %}
+                        </div>
+                        {% if task.description %}
+                        <div class="task-description" data-testid="task-description">
+                            {{ task.description }}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="task-actions">
+                        {% if not task.completed %}
+                        <a href="/complete/{{ task.id }}" class="btn-complete" data-testid="complete-button" data-task-id="{{ task.id }}">
+                            ✓ Completar
+                        </a>
+                        {% endif %}
+                        <a href="/delete/{{ task.id }}" class="btn-delete" data-testid="delete-button" data-task-id="{{ task.id }}">
+                            🗑️ Eliminar
+                        </a>
+                    </div>
+                </li>
+                {% endfor %}
+            {% else %}
+                <li class="empty-state" data-testid="empty-state">
+                    <div class="empty-state-icon">📭</div>
+                    <p data-testid="empty-message">No hay tareas</p>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</body>
+</html>
